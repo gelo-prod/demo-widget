@@ -10,7 +10,8 @@ import { Button } from '@/components/ui/button';
 import { LawInsuranceForm } from './LawInsuranceForm';
 import { FieldSeparator } from '@/components/ui/field';
 
-export const EstimateForm = () => {
+export const EstimateForm = ({ storeToken } : {storeToken: string}) => {
+    
     const [formData, setFormData] = useState<RequestUnit>({
         customer: {
             email: '',
@@ -35,7 +36,7 @@ export const EstimateForm = () => {
             },
         },
     });
-    const handleCarChange = (prop: string, value: string | number) => {
+    const handleCarChange = (prop: string, value: string | number | boolean) => {
         setFormData((prev) => ({
             ...prev,
             car: {
@@ -45,6 +46,17 @@ export const EstimateForm = () => {
             },
         }));
     };
+    const handleSubmit = () => {
+        console.log(formData)
+    }
+
+    // useEffect(() => {
+    //     if (!storeToken) return <span>No token</span>
+    //     console.log(storeToken)
+    // }, [])
+
+    if(!storeToken) return <span>No token</span>
+    console.log(storeToken, 'storeToken component')
 
     return (
         <form>
@@ -67,6 +79,7 @@ export const EstimateForm = () => {
                 />
                 <div className='flex items-center justify-center'>
                     <Button
+                        onClick={handleSubmit}
                         type='button'
                         className='bg-orange-500 hover:bg-orange-600 h-10 px-10 text-lg rounded-md shadow-md hover:shadow-xl
                cursor-pointer'>
